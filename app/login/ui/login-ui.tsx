@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { ScanFace } from "lucide-react";
 
 interface LoginUiProps {
   onGoToSignIn(): void;
@@ -26,11 +27,21 @@ export const LoginUi = ({
 }: LoginUiProps) => {
   return (
     <PageLayout className="h-full">
-      <PageContent className="flex h-full items-center justify-center">
+      <PageContent className="flex flex-col h-full items-center justify-center">
+        <h1 className="font-semibold text-3xl mb-8">
+          Lab super hiper mega importante
+        </h1>
+
         {isSignInForm ? (
           <Card className="w-96 max-w-2xl">
             <CardHeader>
               <CardTitle className="text-center">Entrar</CardTitle>
+
+              <CardAction>
+                <Button variant="ghost">
+                  <ScanFace className="size-6" />
+                </Button>
+              </CardAction>
             </CardHeader>
 
             <CardContent>
@@ -64,6 +75,7 @@ export const LoginUi = ({
 
               <div className="flex flex-1 items-center">
                 <p className="text-gray-500">Não tem conta ainda ? </p>
+
                 <Button
                   className="cursor-pointer"
                   variant="link"
