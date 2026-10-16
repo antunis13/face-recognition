@@ -21,7 +21,7 @@ import {
 const enum Routes {
   records = "/dashboard/records",
   medicines = "/dashboard/medicines",
-  restritected = "/dashboard/restritected",
+  geneticCodes = "/dashboard/geneticCodes",
 }
 
 export const DashboardSidebar = () => {
@@ -64,7 +64,7 @@ export const DashboardSidebar = () => {
               <SidebarMenuItem>
                 <SidebarMenuButton className="cursor-pointer">
                   <Link
-                    href={Routes.restritected}
+                    href={Routes.geneticCodes}
                     className="flex flex-row gap-1"
                   >
                     <Dna />
