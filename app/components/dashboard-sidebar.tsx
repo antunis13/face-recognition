@@ -1,4 +1,10 @@
-import Link from "next/link";
+
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { buscarFuncionarioAtual, funcionarioQueryKey } from "@/lib/api";
 import {
   Sidebar,
   SidebarContent,
@@ -16,23 +22,55 @@ import {
   FilePenLine,
   Pill,
   SquareArrowRightExit,
+  LockKeyhole,
 } from "lucide-react";
 
-const enum Routes {
-  records = "/dashboard/records",
-  medicines = "/dashboard/medicines",
-  geneticCodes = "/dashboard/geneticCodes",
-}
+const areas = [
+  {
+    nome: "Prontuários",
+    rota: "/dashboard/records",
+    nivelNecessario: 1,
+    Icone: FilePenLine,
+  },
+  {
+    nome: "Medicamentos",
+    rota: "/dashboard/medicines",
+    nivelNecessario: 2,
+    Icone: Pill,
+  },
+  {
+    nome: "Códigos genéticos",
+    rota: "/dashboard/geneticCodes",
+    nivelNecessario: 3,
+    Icone: Dna,
+  },
+];
 
 export const DashboardSidebar = () => {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const [mensagem, setMensagem] = useState("");
+  const acesso = useQuery({
+    queryKey: funcionarioQueryKey,
+    queryFn: buscarFuncionarioAtual,
+    staleTime: Infinity,
+  });
+  const nivelAcesso = acesso.data?.nivel_acesso ?? 0;
+
+  function sair() {
+    sessionStorage.removeItem("employeeToken");
+    sessionStorage.removeItem("nivelAcesso");
+    queryClient.removeQueries({ queryKey: funcionarioQueryKey });
+    router.replace("/");
+  }
+
   return (
     <Sidebar>
       <SidebarHeader>
         <div className="flex flex-row items-center gap-2">
-          <div className="p-2 border rounded-lg bg-black">
+          <div className="rounded-lg border bg-black p-2">
             <Dome size={18} color="#ffffff" />
           </div>
-
           <p>Saint Paul Institute</p>
         </div>
       </SidebarHeader>
@@ -40,48 +78,67 @@ export const DashboardSidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
+            {mensagem && (
+              <p
+                role="alert"
+                className="mb-3 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+              >
+                {mensagem}
+              </p>
+            )}
+
             <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton className="cursor-pointer">
-                  <Link href={Routes.records} className="flex flex-row gap-1">
-                    <FilePenLine />
+              {areas.map((area) => {
+                const autorizado =
+                  nivelAcesso >= area.nivelNecessario;
+                const Icone = area.Icone;
 
-                    <p>Prontuários </p>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+                return (
+                  <SidebarMenuItem key={area.rota}>
+                    <SidebarMenuButton
+                      className={
+                        autorizado
+                          ? "cursor-pointer"
+                          : "cursor-not-allowed opacity-60"
+                      }
+                      onClick={() => {
+                        if (!autorizado) {
+                          setMensagem(
+                            "Você não tem autorização."
+                          );
+                          return;
+                        }
 
-              <SidebarMenuItem>
-                <SidebarMenuButton className="cursor-pointer">
-                  <Link href={Routes.medicines} className="flex flex-row gap-1">
-                    <Pill />
-
-                    <p>Medicamentos </p>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton className="cursor-pointer">
-                  <Link
-                    href={Routes.geneticCodes}
-                    className="flex flex-row gap-1"
-                  >
-                    <Dna />
-
-                    <p>Códigos genéticos</p>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+                        setMensagem("");
+                        router.push(area.rota);
+                      }}
+                    >
+                      <Icone />
+                      <span>{area.nome}</span>
+                      {!autorizado && (
+                        <LockKeyhole className="ml-auto size-4" />
+                      )}
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter>
-        <SidebarMenuButton className="cursor-pointer">
-          <SquareArrowRightExit />
-          <p>Sair</p>
-        </SidebarMenuButton>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              className="cursor-pointer"
+              onClick={sair}
+            >
+              <SquareArrowRightExit />
+              <span>Sair</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
   );
