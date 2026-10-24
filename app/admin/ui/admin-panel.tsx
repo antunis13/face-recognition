@@ -99,38 +99,39 @@ export function AdminPanel() {
 
   if (usuariosQuery.isPending || sessaoInvalida) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gray-950 p-6 text-gray-100">
+      <main className="flex min-h-screen items-center justify-center bg-background p-6 text-foreground">
         <Spinner className="size-6" />
       </main>
     );
   }
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center bg-gray-950 px-4 py-8 text-gray-100 sm:px-8">
+    <main className="relative flex min-h-screen items-center justify-center bg-background px-4 py-8 text-foreground sm:px-8">
       <Button
         type="button"
+        variant="outline"
         onClick={sairDoPainel}
-        className="absolute left-4 top-4 border border-gray-600 bg-gray-800 text-gray-100 hover:bg-gray-700 sm:left-8 sm:top-6"
+        className="absolute top-4 left-4 sm:top-6 sm:left-8"
       >
         ← Sair do Painel
       </Button>
 
       <section className="mx-auto flex w-full max-w-5xl flex-col gap-5 pt-12 sm:pt-10">
-        <h1 className="text-center text-3xl font-semibold text-white sm:text-4xl">
+        <h1 className="text-center text-3xl font-semibold sm:text-4xl">
           Painel do Administrador
         </h1>
 
-        <div className="rounded-2xl border border-gray-700 bg-gray-900 p-4 shadow-2xl sm:p-6">
+        <div className="rounded-2xl border border-border bg-card p-4 shadow-2xl sm:p-6">
           <Input
             value={pesquisa}
             onChange={(event) => setPesquisa(event.target.value)}
             placeholder="Pesquisar usuário por nome"
             aria-label="Pesquisar usuário por nome"
-            className="mb-5 h-14 rounded-xl border border-gray-600 bg-gray-800 text-lg text-white placeholder:text-gray-400 focus-visible:ring-gray-400 sm:text-xl"
+            className="mb-5 h-14 rounded-xl text-lg sm:text-xl"
           />
 
-          <div className="overflow-hidden rounded-xl border border-gray-700">
-            <div className="grid grid-cols-[64px_minmax(100px,1fr)_minmax(180px,260px)] border-b border-gray-700 bg-gray-800 font-semibold text-gray-200 sm:grid-cols-[80px_minmax(140px,1fr)_260px]">
+          <div className="overflow-hidden rounded-xl border border-border">
+            <div className="grid grid-cols-[64px_minmax(100px,1fr)_minmax(180px,260px)] border-b border-border bg-muted font-semibold text-foreground sm:grid-cols-[80px_minmax(140px,1fr)_260px]">
               <div className="p-3">ID</div>
               <div className="p-3">Nome</div>
               <div className="p-3 text-center text-sm sm:text-base">
@@ -156,22 +157,22 @@ export function AdminPanel() {
                         selecionarUsuario(usuario);
                       }
                     }}
-                    className={`grid cursor-pointer grid-cols-[64px_minmax(100px,1fr)_minmax(180px,260px)] border-b border-gray-700 last:border-b-0 sm:grid-cols-[80px_minmax(140px,1fr)_260px] ${
+                    className={`grid cursor-pointer grid-cols-[64px_minmax(100px,1fr)_minmax(180px,260px)] border-b border-border last:border-b-0 sm:grid-cols-[80px_minmax(140px,1fr)_260px] ${
                       estaSelecionado
-                        ? "bg-gray-700/80"
-                        : "bg-gray-900 hover:bg-gray-800"
+                        ? "bg-accent"
+                        : "bg-card hover:bg-muted"
                     }`}
                   >
-                    <div className="p-3 text-gray-300 sm:p-4">
+                    <div className="p-3 text-muted-foreground sm:p-4">
                       {usuario.id}
                     </div>
 
-                    <div className="break-words p-3 text-gray-100 sm:p-4">
+                    <div className="break-words p-3 text-foreground sm:p-4">
                       {usuario.nome}
                     </div>
 
                     <div
-                      className="flex items-center justify-center gap-1 border-l border-gray-700 p-2 sm:gap-2"
+                      className="flex items-center justify-center gap-1 border-l border-border p-2 sm:gap-2"
                       onClick={(event) => event.stopPropagation()}
                     >
                       {NIVEIS.map((nivel) => {
@@ -200,11 +201,11 @@ export function AdminPanel() {
                               setNivelPendente(nivel);
                               salvarNivel.reset();
                             }}
-                            className={`flex size-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 sm:size-10 sm:text-lg ${
+                            className={`flex size-8 shrink-0 items-center justify-center rounded-full border-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:size-10 sm:text-lg ${
                               CORES_NIVEIS[nivel]
                             } ${
                               nivelEscolhido
-                                ? "scale-110 ring-2 ring-white ring-offset-2 ring-offset-gray-900"
+                                ? "scale-110 ring-2 ring-ring ring-offset-2 ring-offset-background"
                                 : "opacity-50 hover:scale-105 hover:opacity-100"
                             }`}
                           >
@@ -218,23 +219,23 @@ export function AdminPanel() {
               })}
 
               {usuariosFiltrados.length === 0 && (
-                <p className="bg-gray-900 p-6 text-center text-gray-400">
+                <p className="bg-card p-6 text-center text-muted-foreground">
                   Nenhum funcionário encontrado.
                 </p>
               )}
             </div>
           </div>
 
-          <p className="mt-3 text-sm text-gray-400">
+          <p className="mt-3 text-sm text-muted-foreground">
             Nível 0 = nenhum acesso atribuído. Selecione um funcionário e
             escolha o nível desejado.
           </p>
 
-          <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm text-gray-300">
+          <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
             <span>0 — Sem acesso</span>
-            <span className="text-green-400">1 — Nível 1</span>
-            <span className="text-yellow-400">2 — Nível 2</span>
-            <span className="text-red-400">3 — Nível 3</span>
+            <span className="text-green-700 dark:text-green-400">1 — Nível 1</span>
+            <span className="text-yellow-700 dark:text-yellow-300">2 — Nível 2</span>
+            <span className="text-red-700 dark:text-red-400">3 — Nível 3</span>
           </div>
         </div>
 
@@ -245,13 +246,13 @@ export function AdminPanel() {
         )}
 
         {error && (
-          <p role="alert" className="text-center text-sm text-red-400">
+          <p role="alert" className="text-center text-sm text-destructive">
             {error}
           </p>
         )}
 
         {salvarNivel.isSuccess && (
-          <p role="status" className="text-center text-sm text-green-400">
+          <p role="status" className="text-center text-sm text-green-700 dark:text-green-400">
             Nível de acesso atualizado com sucesso!
           </p>
         )}
@@ -268,7 +269,7 @@ export function AdminPanel() {
             className={`h-auto min-h-14 w-full max-w-md whitespace-normal rounded-xl border px-6 py-4 text-lg font-semibold transition-colors sm:text-2xl ${
               salvarNivel.isSuccess
                 ? "border-green-500 bg-green-600 text-white hover:bg-green-500"
-                : "border-gray-600 bg-gray-800 text-gray-100 hover:bg-gray-700"
+                : ""
             }`}
           >
             {salvarNivel.isPending

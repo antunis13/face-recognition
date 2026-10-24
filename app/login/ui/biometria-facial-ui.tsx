@@ -58,7 +58,7 @@ export const BiometriaFacialUi = ({
           </CardHeader>
 
           <CardContent className="flex flex-col gap-4">
-            <p className="text-sm text-gray-500 text-center">
+            <p className="text-center text-sm text-muted-foreground">
               Escolha como deseja fornecer sua imagem facial.
             </p>
 
@@ -136,7 +136,7 @@ export const BiometriaFacialUi = ({
             {error && (
               <p
                 role="alert"
-                className="rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+                className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive"
               >
                 {error}
               </p>
@@ -145,7 +145,7 @@ export const BiometriaFacialUi = ({
             {success && (
               <p
                 role="status"
-                className="rounded-md border border-green-300 bg-green-50 p-3 text-sm text-green-700"
+                className="rounded-md border border-green-600/30 bg-green-600/10 p-3 text-sm text-green-800 dark:text-green-300"
               >
                 {success}
               </p>

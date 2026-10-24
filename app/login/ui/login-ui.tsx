@@ -106,7 +106,7 @@ export const LoginUi = ({
                 </Button>
 
                 <div className="flex flex-wrap items-center justify-center">
-                  <p className="text-gray-500">
+                  <p className="text-muted-foreground">
                     Não tem conta ainda?
                   </p>
 
@@ -203,7 +203,7 @@ export const LoginUi = ({
         {error && (
           <p
             role="alert"
-            className="mt-4 w-96 max-w-2xl rounded-lg border border-red-500/40 bg-slate-900 p-4 text-center text-sm text-red-300"
+            className="mt-4 w-96 max-w-2xl rounded-lg border border-destructive/40 bg-destructive/10 p-4 text-center text-sm text-destructive"
           >
             {error}
           </p>

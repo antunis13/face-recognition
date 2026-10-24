@@ -81,7 +81,7 @@ export const DashboardSidebar = () => {
             {mensagem && (
               <p
                 role="alert"
-                className="mb-3 rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+                className="mb-3 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive"
               >
                 {mensagem}
               </p>

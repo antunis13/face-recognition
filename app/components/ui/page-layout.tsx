@@ -17,14 +17,14 @@ export const PageHeader = ({
   children,
 }: PageHeaderProps) => {
   return (
-    <div className={cn("px-8 pt-6 pb-3 bg-white", className)}>
+    <div className={cn("bg-background px-8 pt-6 pb-3", className)}>
       <div className="flex gap-4 justify-between items-center">
         <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
 
         {rightActions && <div>{rightActions}</div>}
       </div>
 
-      {subtitle && <p className="text-gray-500 mt-2">{subtitle}</p>}
+      {subtitle && <p className="mt-2 text-muted-foreground">{subtitle}</p>}
 
       {children && <div className="mt-6">{children}</div>}
     </div>

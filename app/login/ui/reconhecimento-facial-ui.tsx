@@ -165,7 +165,7 @@ export const ReconhecimentoFacialUi = ({
               {error && (
                 <p
                   role="alert"
-                  className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+                  className="rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive"
                 >
                   {error}
                 </p>
@@ -174,7 +174,7 @@ export const ReconhecimentoFacialUi = ({
               {success && (
                 <div
                   role="status"
-                  className="flex items-center gap-2 rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-700"
+                  className="flex items-center gap-2 rounded-lg border border-green-600/30 bg-green-600/10 p-3 text-sm text-green-800 dark:text-green-300"
                 >
                   <CheckCircle2 className="size-5 shrink-0" />
                   {success}
