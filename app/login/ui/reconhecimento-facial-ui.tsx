@@ -1,5 +1,4 @@
 import { RefObject } from "react";
-import Image from "next/image";
 import { PageContent, PageLayout } from "@/app/components/ui/page-layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +13,6 @@ import {
   ArrowLeft,
   Camera,
   CheckCircle2,
-  ImagePlus,
   ScanFace,
   ShieldCheck,
 } from "lucide-react";
@@ -22,14 +20,10 @@ import {
 interface ReconhecimentoFacialUiProps {
   videoRef: RefObject<HTMLVideoElement | null>;
   cameraAtiva: boolean;
-  previewFoto: string;
-  fotoSelecionada: File | null;
   error?: string;
   loading?: boolean;
   success?: string;
   onAbrirCamera(): void;
-  onSelecionarFoto(arquivo: File | null): void;
-  onRemoverFoto(): void;
   onReconhecer(): void;
   onPararCamera(): void;
   onVoltar(): void;
@@ -38,14 +32,10 @@ interface ReconhecimentoFacialUiProps {
 export const ReconhecimentoFacialUi = ({
   videoRef,
   cameraAtiva,
-  previewFoto,
-  fotoSelecionada,
   error,
   loading,
   success,
   onAbrirCamera,
-  onSelecionarFoto,
-  onRemoverFoto,
   onReconhecer,
   onPararCamera,
   onVoltar,
@@ -63,8 +53,7 @@ export const ReconhecimentoFacialUi = ({
               <CardTitle className="text-2xl">Reconhecimento facial</CardTitle>
 
               <CardDescription>
-                Confirme sua identidade para acessar o sistema. Você pode usar
-                a câmera ou selecionar uma foto para teste.
+                Confirme sua identidade para acessar o sistema usando a câmera.
               </CardDescription>
             </CardHeader>
 
@@ -80,22 +69,11 @@ export const ReconhecimentoFacialUi = ({
                   }`}
                 />
 
-                {!cameraAtiva && !previewFoto && (
+                {!cameraAtiva && (
                   <div className="flex flex-col items-center gap-3 p-6 text-center text-muted-foreground">
                     <ScanFace className="size-12" />
-                    <p>Nenhuma imagem selecionada.</p>
+                    <p>Abra a câmera para continuar.</p>
                   </div>
-                )}
-
-                {previewFoto && (
-                  <Image
-                    src={previewFoto}
-                    alt="Foto selecionada para teste"
-                    fill
-                    unoptimized
-                    sizes="(max-width: 512px) 100vw, 512px"
-                    className="object-contain"
-                  />
                 )}
               </div>
 
@@ -103,58 +81,16 @@ export const ReconhecimentoFacialUi = ({
                 Procure um local iluminado e mantenha o rosto visível.
               </p>
 
-              <div className="space-y-2">
-                <Button
-                  type="button"
-                  onClick={onAbrirCamera}
-                  disabled={loading || cameraAtiva}
-                  variant="outline"
-                  className="w-full"
-                >
-                  <Camera className="mr-2 size-4" />
-                  Abrir câmera
-                </Button>
-
-                <label
-                  htmlFor="foto-teste"
-                  className={`flex w-full cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-3 text-sm font-medium transition-colors hover:bg-accent ${
-                    loading ? "pointer-events-none opacity-50" : ""
-                  }`}
-                >
-                  <ImagePlus className="mr-2 size-4" />
-                  Selecionar foto do computador
-                </label>
-
-                <input
-                  id="foto-teste"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  disabled={loading}
-                  onChange={(evento) => {
-                    onSelecionarFoto(evento.target.files?.[0] ?? null);
-                    evento.target.value = "";
-                  }}
-                />
-
-                {fotoSelecionada && (
-                  <div className="space-y-2">
-                    <p className="text-center text-sm text-muted-foreground">
-                      Foto selecionada: {fotoSelecionada.name}
-                    </p>
-
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={onRemoverFoto}
-                      disabled={loading}
-                      className="w-full"
-                    >
-                      Remover foto selecionada
-                    </Button>
-                  </div>
-                )}
-              </div>
+              <Button
+                type="button"
+                onClick={onAbrirCamera}
+                disabled={loading || cameraAtiva}
+                variant="outline"
+                className="w-full"
+              >
+                <Camera className="mr-2 size-4" />
+                Abrir câmera
+              </Button>
 
               {loading && (
                 <div className="flex justify-center">
@@ -165,7 +101,7 @@ export const ReconhecimentoFacialUi = ({
               {error && (
                 <p
                   role="alert"
-                  className="rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700"
+                  className="rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive"
                 >
                   {error}
                 </p>
@@ -174,7 +110,7 @@ export const ReconhecimentoFacialUi = ({
               {success && (
                 <div
                   role="status"
-                  className="flex items-center gap-2 rounded-lg border border-green-300 bg-green-50 p-3 text-sm text-green-700"
+                  className="flex items-center gap-2 rounded-lg border border-green-600/30 bg-green-600/10 p-3 text-sm text-green-800 dark:text-green-300"
                 >
                   <CheckCircle2 className="size-5 shrink-0" />
                   {success}
@@ -184,7 +120,7 @@ export const ReconhecimentoFacialUi = ({
               <Button
                 type="button"
                 onClick={onReconhecer}
-                disabled={loading || (!cameraAtiva && !fotoSelecionada)}
+                disabled={loading || !cameraAtiva}
                 className="w-full"
               >
                 <ShieldCheck className="mr-2 size-4" />

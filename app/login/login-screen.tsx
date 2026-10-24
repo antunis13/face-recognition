@@ -46,7 +46,7 @@ export const LoginScreen = () => {
 
   if (cadastrandoBiometria) {
     return (
-      <div className="min-h-screen bg-[#0b1120] text-slate-100">
+      <div className="min-h-screen bg-background text-foreground">
         <BiometriaFacialScreen
           usuario={usuario}
           senha={senha}
@@ -58,7 +58,7 @@ export const LoginScreen = () => {
 
   if (reconhecendoRosto) {
     return (
-      <div className="min-h-screen bg-[#0b1120] text-slate-100">
+      <div className="min-h-screen bg-background text-foreground">
         <ReconhecimentoFacialScreen
           token={tokenFuncionario}
           onVoltar={() => {
@@ -72,7 +72,7 @@ export const LoginScreen = () => {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-[#0b1120] text-slate-100">
+    <main className="flex min-h-screen items-center justify-center bg-background text-foreground">
       <LoginUi
         onGoToSignIn={() => {
           login.reset();
