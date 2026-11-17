@@ -47,12 +47,19 @@ yarn -v
 
 ## 3. Instalar as dependências e subir o frontend
 
+Na pasta raiz do projeto:
+
 ```bash
 yarn install
+```
+
+Para subir o frontend em desenvolvimento, use:
+
+```bash
 yarn dev
 ```
 
-O frontend fica em [http://localhost:3000](http://localhost:3000).
+O frontend fica em [http://localhost:3000](http://localhost:3000). Deixe esse terminal aberto enquanto a API estiver rodando.
 
 ## 4. Subir a API
 
