@@ -47,7 +47,7 @@ export const BiometriaFacialUi = ({
     <PageLayout className="h-full">
       <PageContent className="flex flex-col h-full items-center justify-center">
         <h1 className="font-semibold text-3xl mb-8 text-center">
-          Saint Paul Institute
+          Ministério do Meio Ambiente
         </h1>
 
         <Card className="w-full max-w-md">
@@ -103,7 +103,11 @@ export const BiometriaFacialUi = ({
                   className="w-full rounded-lg"
                 />
 
-                <Button type="button" onClick={onCapturarFoto} disabled={loading}>
+                <Button
+                  type="button"
+                  onClick={onCapturarFoto}
+                  disabled={loading}
+                >
                   <ScanFace className="mr-2 size-5" />
                   Capturar foto
                 </Button>

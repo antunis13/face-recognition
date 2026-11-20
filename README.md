@@ -63,12 +63,23 @@ O frontend fica em [http://localhost:3000](http://localhost:3000). Deixe esse te
 
 ## 4. Subir a API
 
-A API fica em `ministerio_saude-main` e usa Python 3.12. Em outro terminal, entre nessa pasta:
+A API fica em `ministerio_saude-main` e usa Python 3.12. Em outro terminal, entre nessa pasta e crie o ambiente virtual com o Python 3.12.
+
+macOS e Linux:
 
 ```bash
 cd ministerio_saude-main
-python3 -m venv .venv
+python3.12 -m venv .venv
 ```
+
+Windows:
+
+```bash
+cd ministerio_saude-main
+py -3.12 -m venv .venv
+```
+
+Se o comando não for encontrado, o Python 3.12 não está instalado. Baixe em [https://www.python.org/downloads/](https://www.python.org/downloads/) e tente de novo.
 
 Ative o ambiente virtual.
 
@@ -84,15 +95,30 @@ Windows:
 .venv\Scripts\activate
 ```
 
-Instale as dependências, crie a chave de criptografia e o banco, e suba o servidor:
+Instale as dependências:
 
 ```bash
 pip install -r requirements.txt
-python -c "from cryptography.fernet import Fernet; open('.env','w').write('FERNET_KEY=' + Fernet.generate_key().decode())"
+```
+
+Crie a chave de criptografia no arquivo `.env`. Os dados faciais são gravados com essa chave, e uma chave nova não abre o que foi gravado com a anterior. Por isso o comando abaixo só cria o `.env` quando ele ainda não existe. Não apague nem edite a `FERNET_KEY` de um `.env` em uso.
+
+```bash
+python -c "import os; from cryptography.fernet import Fernet; os.path.exists('.env') or open('.env','w').write('FERNET_KEY=' + Fernet.generate_key().decode())"
+```
+
+Crie o banco. O script pode ser rodado mais de uma vez: ele não apaga tabelas nem usuários existentes. Ele cria o administrador padrão `administrador` com a senha `123123`.
+
+```bash
 python banco/criar_banco.py
+```
+
+Suba o servidor:
+
+```bash
 python -m uvicorn api.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
 A API fica em [http://127.0.0.1:8000](http://127.0.0.1:8000) e a documentação em [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 
-O script do banco cria o administrador padrão `administrador` com a senha `123123`. Se o arquivo `.env` já existir, não rode de novo o comando que gera a `FERNET_KEY`: uma chave nova não abre os dados faciais gravados com a chave anterior.
+Nas próximas vezes, basta entrar em `ministerio_saude-main`, ativar o ambiente virtual e rodar o comando do `uvicorn`.

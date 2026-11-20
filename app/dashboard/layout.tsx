@@ -14,7 +14,7 @@ import {
 function nivelNecessario(pathname: string): number {
   if (pathname.startsWith("/dashboard/records")) return 1;
   if (pathname.startsWith("/dashboard/medicines")) return 2;
-  if (pathname.startsWith("/dashboard/geneticCodes")) return 3;
+  if (pathname.startsWith("/dashboard/toxins")) return 3;
   return 0;
 }
 

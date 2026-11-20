@@ -1,4 +1,3 @@
-
 "use client";
 
 import { PageContent, PageLayout } from "@/app/components/ui/page-layout";
@@ -39,7 +38,7 @@ export const LoginUi = ({
     <PageLayout className="h-full">
       <PageContent className="flex flex-col h-full items-center justify-center">
         <h1 className="font-semibold text-3xl mb-8">
-          Saint Paul Institute
+          Ministério do Meio Ambiente
         </h1>
 
         {isSignInForm ? (
@@ -59,9 +58,7 @@ export const LoginUi = ({
                 event.preventDefault();
 
                 const dados = new FormData(event.currentTarget);
-                const usuario = String(
-                  dados.get("usuario") ?? ""
-                ).trim();
+                const usuario = String(dados.get("usuario") ?? "").trim();
                 const senha = String(dados.get("senha") ?? "");
 
                 onLogin(usuario, senha);
@@ -70,9 +67,7 @@ export const LoginUi = ({
               <CardContent>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="login-usuario">
-                      Nome de usuário
-                    </Label>
+                    <Label htmlFor="login-usuario">Nome de usuário</Label>
 
                     <Input
                       id="login-usuario"
@@ -106,9 +101,7 @@ export const LoginUi = ({
                 </Button>
 
                 <div className="flex flex-wrap items-center justify-center">
-                  <p className="text-muted-foreground">
-                    Não tem conta ainda?
-                  </p>
+                  <p className="text-muted-foreground">Não tem conta ainda?</p>
 
                   <Button
                     type="button"
@@ -144,9 +137,7 @@ export const LoginUi = ({
                 event.preventDefault();
 
                 const dados = new FormData(event.currentTarget);
-                const usuario = String(
-                  dados.get("usuario") ?? ""
-                ).trim();
+                const usuario = String(dados.get("usuario") ?? "").trim();
                 const senha = String(dados.get("senha") ?? "");
 
                 onRegister(usuario, senha);
@@ -155,9 +146,7 @@ export const LoginUi = ({
               <CardContent>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="cadastro-usuario">
-                      Nome de usuário
-                    </Label>
+                    <Label htmlFor="cadastro-usuario">Nome de usuário</Label>
 
                     <Input
                       id="cadastro-usuario"

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { GeneticCodesUi, type GeneticCodesList } from "./ui/genetic-codes-ui";
+import { ToxinsUi, type ToxinsList } from "./ui/toxins-ui";
 
-const geneticCodes: GeneticCodesList[] = [
+const toxins: ToxinsList[] = [
   {
     code: "GC-1042",
     risk: "baixa",
@@ -96,18 +96,17 @@ const geneticCodes: GeneticCodesList[] = [
   },
 ];
 
-export const GeneticCodes = () => {
-  const [isGeneticCodeModalOpen, setIsGeneticCodeModalOpen] = useState(false);
-  const [selectedGeneticCode, setSelectedGeneticCode] =
-    useState<GeneticCodesList>();
+export const Toxins = () => {
+  const [isToxinModalOpen, setIsToxinModalOpen] = useState(false);
+  const [selectedToxin, setSelectedToxin] = useState<ToxinsList>();
 
   return (
-    <GeneticCodesUi
-      geneticCodes={geneticCodes}
-      selectedGeneticCode={selectedGeneticCode}
-      setSelectedGeneticCode={setSelectedGeneticCode}
-      isGeneticCodeModalOpen={isGeneticCodeModalOpen}
-      setIsGeneticCodeModalOpen={setIsGeneticCodeModalOpen}
+    <ToxinsUi
+      toxins={toxins}
+      selectedToxin={selectedToxin}
+      setSelectedToxin={setSelectedToxin}
+      isToxinModalOpen={isToxinModalOpen}
+      setIsToxinModalOpen={setIsToxinModalOpen}
     />
   );
 };

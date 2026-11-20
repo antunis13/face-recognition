@@ -27,9 +27,9 @@ const areas = [
     Icone: Pill,
   },
   {
-    nome: "Códigos genéticos",
-    descricao: "Consultar informações genéticas.",
-    rota: "/dashboard/geneticCodes",
+    nome: "Toxinas",
+    descricao: "Consultar informações sobre toxinas.",
+    rota: "/dashboard/toxins",
     nivelNecessario: 3,
     Icone: Dna,
   },
