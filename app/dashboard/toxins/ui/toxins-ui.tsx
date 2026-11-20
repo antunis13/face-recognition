@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
 import {
   PageContent,
   PageHeader,
@@ -21,11 +20,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export type GeneticCodeRisk = "baixa" | "moderada" | "alta" | "extrema";
+export type ToxinsRisk = "baixa" | "moderada" | "alta" | "extrema";
 
-export interface GeneticCodesList {
+export interface ToxinsList {
   code: string;
-  risk: GeneticCodeRisk;
+  risk: ToxinsRisk;
   description: string;
   transmissibilityRate: string;
   incubationPeriod: string;
@@ -33,25 +32,25 @@ export interface GeneticCodesList {
   geneticSequence: string;
 }
 
-interface GeneticCodesUiProps {
-  geneticCodes: GeneticCodesList[];
-  selectedGeneticCode?: GeneticCodesList;
-  setSelectedGeneticCode(geneticCode: GeneticCodesList): void;
-  isGeneticCodeModalOpen: boolean;
-  setIsGeneticCodeModalOpen(value: boolean): void;
+interface ToxinsUiProps {
+  toxins: ToxinsList[];
+  selectedToxin?: ToxinsList;
+  setSelectedToxin(toxin: ToxinsList): void;
+  isToxinModalOpen: boolean;
+  setIsToxinModalOpen(value: boolean): void;
 }
 
-export const GeneticCodesUi = ({
-  geneticCodes,
-  selectedGeneticCode,
-  setSelectedGeneticCode,
-  isGeneticCodeModalOpen,
-  setIsGeneticCodeModalOpen,
-}: GeneticCodesUiProps) => {
+export const ToxinsUi = ({
+  toxins,
+  selectedToxin,
+  setSelectedToxin,
+  isToxinModalOpen,
+  setIsToxinModalOpen,
+}: ToxinsUiProps) => {
   return (
     <>
       <PageLayout>
-        <PageHeader title="Códigos genéticos" />
+        <PageHeader title="Toxinas" />
 
         <PageContent>
           <Card>
@@ -64,19 +63,17 @@ export const GeneticCodesUi = ({
               </TableHeader>
 
               <TableBody>
-                {geneticCodes.map((geneticCode) => (
+                {toxins.map((toxin) => (
                   <TableRow
-                    key={geneticCode.code}
+                    key={toxin.code}
                     className="cursor-pointer"
                     onClick={() => {
-                      setSelectedGeneticCode(geneticCode);
-                      setIsGeneticCodeModalOpen(true);
+                      setSelectedToxin(toxin);
+                      setIsToxinModalOpen(true);
                     }}
                   >
-                    <TableCell>{geneticCode.code}</TableCell>
-                    <TableCell className="capitalize">
-                      {geneticCode.risk}
-                    </TableCell>
+                    <TableCell>{toxin.code}</TableCell>
+                    <TableCell className="capitalize">{toxin.risk}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -86,40 +83,40 @@ export const GeneticCodesUi = ({
       </PageLayout>
 
       <Dialog
-        open={isGeneticCodeModalOpen}
-        onOpenChange={setIsGeneticCodeModalOpen}
+        open={isToxinModalOpen}
+        onOpenChange={setIsToxinModalOpen}
       >
         <DialogContent className="sm:max-w-xl">
           <DialogHeader>
             <DialogTitle>
-              Perfil genético: {selectedGeneticCode?.code}
+              Toxina: {selectedToxin?.code}
             </DialogTitle>
             <DialogDescription>
-              {selectedGeneticCode?.description}
+              {selectedToxin?.description}
             </DialogDescription>
           </DialogHeader>
 
-          {selectedGeneticCode && (
+          {selectedToxin && (
             <div className="flex flex-col gap-2">
               <div>
                 <p className="font-semibold">Taxa de transmissibilidade:</p>
-                <p>{selectedGeneticCode.transmissibilityRate}</p>
+                <p>{selectedToxin.transmissibilityRate}</p>
               </div>
 
               <div>
                 <p className="font-semibold">Período de incubação:</p>
-                <p>{selectedGeneticCode.incubationPeriod}</p>
+                <p>{selectedToxin.incubationPeriod}</p>
               </div>
 
               <div>
                 <p className="font-semibold">Taxa de mortalidade:</p>
-                <p>{selectedGeneticCode.mortalityRate}</p>
+                <p>{selectedToxin.mortalityRate}</p>
               </div>
 
               <div>
                 <p className="font-semibold">Sequência genética:</p>
                 <p className="break-all font-mono text-xs">
-                  {selectedGeneticCode.geneticSequence}
+                  {selectedToxin.geneticSequence}
                 </p>
               </div>
             </div>

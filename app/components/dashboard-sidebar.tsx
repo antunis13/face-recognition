@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from "react";
@@ -39,8 +38,8 @@ const areas = [
     Icone: Pill,
   },
   {
-    nome: "Códigos genéticos",
-    rota: "/dashboard/geneticCodes",
+    nome: "Toxinas",
+    rota: "/dashboard/toxins",
     nivelNecessario: 3,
     Icone: Dna,
   },
@@ -71,7 +70,7 @@ export const DashboardSidebar = () => {
           <div className="rounded-lg border bg-black p-2">
             <Dome size={18} color="#ffffff" />
           </div>
-          <p>Saint Paul Institute</p>
+          <p>Ministério do Meio Ambiente</p>
         </div>
       </SidebarHeader>
 
@@ -89,8 +88,7 @@ export const DashboardSidebar = () => {
 
             <SidebarMenu>
               {areas.map((area) => {
-                const autorizado =
-                  nivelAcesso >= area.nivelNecessario;
+                const autorizado = nivelAcesso >= area.nivelNecessario;
                 const Icone = area.Icone;
 
                 return (
@@ -103,9 +101,7 @@ export const DashboardSidebar = () => {
                       }
                       onClick={() => {
                         if (!autorizado) {
-                          setMensagem(
-                            "Você não tem autorização."
-                          );
+                          setMensagem("Você não tem autorização.");
                           return;
                         }
 
@@ -130,10 +126,7 @@ export const DashboardSidebar = () => {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              className="cursor-pointer"
-              onClick={sair}
-            >
+            <SidebarMenuButton className="cursor-pointer" onClick={sair}>
               <SquareArrowRightExit />
               <span>Sair</span>
             </SidebarMenuButton>

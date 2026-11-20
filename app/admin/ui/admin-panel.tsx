@@ -69,7 +69,7 @@ export function AdminPanel() {
   const usuarios = usuariosQuery.data ?? [];
 
   const usuariosFiltrados = usuarios.filter((usuario) =>
-    usuario.nome.toLowerCase().includes(pesquisa.trim().toLowerCase()),
+    usuario.nome.toLowerCase().includes(pesquisa.trim().toLowerCase())
   );
 
   function selecionarUsuario(usuario: UsuarioAdmin) {
@@ -158,9 +158,7 @@ export function AdminPanel() {
                       }
                     }}
                     className={`grid cursor-pointer grid-cols-[64px_minmax(100px,1fr)_minmax(180px,260px)] border-b border-border last:border-b-0 sm:grid-cols-[80px_minmax(140px,1fr)_260px] ${
-                      estaSelecionado
-                        ? "bg-accent"
-                        : "bg-card hover:bg-muted"
+                      estaSelecionado ? "bg-accent" : "bg-card hover:bg-muted"
                     }`}
                   >
                     <div className="p-3 text-muted-foreground sm:p-4">
@@ -233,9 +231,15 @@ export function AdminPanel() {
 
           <div className="mt-4 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
             <span>0 — Sem acesso</span>
-            <span className="text-green-700 dark:text-green-400">1 — Nível 1</span>
-            <span className="text-yellow-700 dark:text-yellow-300">2 — Nível 2</span>
-            <span className="text-red-700 dark:text-red-400">3 — Nível 3</span>
+            <span className="text-green-700 dark:text-green-400">
+              1 — Nível 1
+            </span>
+            <span className="text-yellow-700 dark:text-yellow-300">
+              2 — Nível 2
+            </span>
+            <span className="text-red-700 dark:text-red-400">
+              3 — Nível 3 (Somente atribuível para o Ministro do Meio Ambiente)
+            </span>
           </div>
         </div>
 
@@ -252,7 +256,10 @@ export function AdminPanel() {
         )}
 
         {salvarNivel.isSuccess && (
-          <p role="status" className="text-center text-sm text-green-700 dark:text-green-400">
+          <p
+            role="status"
+            className="text-center text-sm text-green-700 dark:text-green-400"
+          >
             Nível de acesso atualizado com sucesso!
           </p>
         )}
@@ -275,8 +282,8 @@ export function AdminPanel() {
             {salvarNivel.isPending
               ? "Salvando..."
               : salvarNivel.isSuccess
-                ? "Alteração confirmada ✓"
-                : "Confirmar alteração"}
+              ? "Alteração confirmada ✓"
+              : "Confirmar alteração"}
           </Button>
         </div>
       </section>
